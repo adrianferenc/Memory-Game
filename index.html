@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memory Game</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <script defer src="js/main.js"></script>
+  </head>
+  <body>
+    <div id="pregame">
+      <h2>How large would you like your box to be?</h2>
+      <input
+        type="range"
+        min="2"
+        max="10"
+        value="6"
+        class="slider"
+        id="myRange"
+      />
+      <p id="boxSize">test</p>
+      <br />
+      <h2>Set your difficulty level:</h2>
+      <label class="radio-inline"
+        ><input type="radio" id="easy" name="easy" value="easy" />Easy</label
+      >
+      <label class="radio-inline"
+        ><input
+          type="radio"
+          id="regular"
+          name="regular"
+          value="regular"
+        />Regular</label
+      >
+      <label class="radio-inline"
+        ><input type="radio" id="hard" name="hard" value="hard" />Hard</label
+      >
+      <br />
+      <input type="button" value="Start" id="start" />
+    </div>
+  </body>
+</html>
