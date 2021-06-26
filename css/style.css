@@ -3,6 +3,7 @@
   height: 50px;
   border: 1pt black solid;
   font-size: 25px;
+  font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -53,7 +53,7 @@ function createGrid() {
   }
   if (document.getElementById("hard").checked) {
     for (let i = 0; i < boxes.length; i++) {
-      boxes[i].style.border = 0;
+      boxes[i].style.border = '0pt solid white';
     }
   }
   for (let i = 0; i < n; i++) {
@@ -67,6 +67,14 @@ function createGrid() {
   document.getElementById("pregame").remove();
 }
 
+let colorArray = [];
+
+for (let i = 1; i<=n**2/2; i++){
+    colorArray.push(`rgb(${Math.floor(
+        Math.random() * 255
+      )},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)})`)
+}
+
 function idToNum(id) {
   return id.split("-")[1];
 }
@@ -77,21 +85,25 @@ function numToId(id) {
 
 function select(e) {
   id = e.target.id;
-  if (guess2) {
+  if (guess2) { 
     document.getElementById(guess1).classList.remove("selected");
     document.getElementById(guess2).classList.remove("selected");
     document.getElementById(guess1).textContent = "";
     document.getElementById(guess2).textContent = "";
+    document.getElementById(guess1).style.backgroundColor = "white";
+    document.getElementById(guess2).style.backgroundColor = "white";
     document.getElementById(guess1).addEventListener("click", select);
     document.getElementById(guess2).addEventListener("click", select);
     document.getElementById(id).classList.add("selected");
     document.getElementById(id).removeEventListener("click", select);
     document.getElementById(id).textContent = array1[idToNum(id)];
+    document.getElementById(id).style.backgroundColor = colorArray[array1[idToNum(id)]]
     guess1 = id;
     guess2 = null;
   } else if (guess1) {
     turns++;
     document.getElementById(id).classList.add("selected");
+    document.getElementById(id).style.backgroundColor = colorArray[array1[idToNum(id)]]
     document.getElementById(id).textContent = array1[idToNum(id)];
     document.getElementById(id).removeEventListener("click", select);
     guess2 = id;
@@ -106,6 +118,7 @@ function select(e) {
   } else {
     document.getElementById(id).classList.add("selected");
     document.getElementById(id).textContent = array1[idToNum(id)];
+    document.getElementById(id).style.backgroundColor = colorArray[array1[idToNum(id)]]
     document.getElementById(id).removeEventListener("click", select);
     guess1 = id;
   }
