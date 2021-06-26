@@ -1,6 +1,8 @@
+let array1, array2, guess1, guess2, turns, found, gridLength, n;
+
 let slider = document.getElementById("myRange");
 
-let n = 2 * slider.value;
+n = 2 * slider.value;
 document.getElementById("boxSize").innerHTML = n;
 
 slider.oninput = function () {
@@ -8,19 +10,18 @@ slider.oninput = function () {
   document.getElementById("boxSize").innerHTML = n;
 };
 
-console.log("works??");
-
-let array1 = [];
-let array2 = [];
-
-let guess1;
-let guess2;
-let turns = 0;
-let found = 0;
-
-//Create squares:
 let start = document.getElementById("start");
 start.addEventListener("click", createGrid);
+
+function initialize() {
+  array1 = [];
+  array2 = [];
+  turns = 0;
+  found = 0;
+  gridLength = "";
+}
+
+initialize();
 
 function createGrid() {
   while (array1.length < n ** 2) {
@@ -32,25 +33,21 @@ function createGrid() {
       array1.push(element);
     }
   }
-  for (let i = 1; i <= n; i++) {
-    for (let j = 1; j <= n; j++) {
-      let button = document.createElement("button");
-      button.innerHTML = `${array1[6 * (i - 1) + (j - 1)]}`;
-      button.id = `${i},${j}`;
-      button.className = "memory";
-      button.addEventListener("click", select);
-      document.body.appendChild(button);
-    }
-    document.body.appendChild(document.createElement("br"));
+  for (let i = 0; i < n ** 2; i++) {
+    let button = document.createElement("div");
+    button.id = `box-${i}`;
+    button.className = "memory";
+    button.addEventListener("click", select);
+    document.querySelector("#game").appendChild(button);
   }
   let boxes = document.getElementsByClassName("memory");
   if (document.getElementById("easy").checked) {
     for (let i = 0; i < boxes.length; i++) {
-      boxes[i].style.color = "black";
+      boxes[i].textContent = array1[i];
     }
     setTimeout(function () {
       for (let i = 0; i < boxes.length; i++) {
-        boxes[i].style.color = "white";
+        boxes[i].textContent = "";
       }
     }, 3000);
   }
@@ -59,7 +56,23 @@ function createGrid() {
       boxes[i].style.border = 0;
     }
   }
+  for (let i = 0; i < n; i++) {
+    gridLength += "auto ";
+  }
+
+  document.querySelector("#game").style.gridTemplate =
+    gridLength + "/" + gridLength;
+  document.querySelector("#game").style.height = `${n * 52}px`;
+  document.querySelector("#game").style.width = `${n * 52}px`;
   document.getElementById("pregame").remove();
+}
+
+function idToNum(id) {
+  return id.split("-")[1];
+}
+
+function numToId(id) {
+  return `box-${id}`;
 }
 
 function select(e) {
@@ -67,20 +80,24 @@ function select(e) {
   if (guess2) {
     document.getElementById(guess1).classList.remove("selected");
     document.getElementById(guess2).classList.remove("selected");
+    document.getElementById(guess1).textContent = "";
+    document.getElementById(guess2).textContent = "";
     document.getElementById(guess1).addEventListener("click", select);
     document.getElementById(guess2).addEventListener("click", select);
     document.getElementById(id).classList.add("selected");
     document.getElementById(id).removeEventListener("click", select);
+    document.getElementById(id).textContent = array1[idToNum(id)];
     guess1 = id;
     guess2 = null;
   } else if (guess1) {
     turns++;
     document.getElementById(id).classList.add("selected");
+    document.getElementById(id).textContent = array1[idToNum(id)];
     document.getElementById(id).removeEventListener("click", select);
     guess2 = id;
     if (
-      document.getElementById(guess2).innerHTML ===
-      document.getElementById(guess1).innerHTML
+      document.getElementById(guess2).textContent ===
+      document.getElementById(guess1).textContent
     ) {
       found += 2;
       guess1 = null;
@@ -88,12 +105,14 @@ function select(e) {
     }
   } else {
     document.getElementById(id).classList.add("selected");
+    document.getElementById(id).textContent = array1[idToNum(id)];
     document.getElementById(id).removeEventListener("click", select);
     guess1 = id;
   }
 
   if (found === n ** 2) {
-    console.log("game over");
-    //write GAME OVER. IT TOOK YOU ___ turns
+    let gameOver = document.createElement("h1");
+    gameOver.textContent = `Game over. It took you ${turns} turns.`;
+    document.getElementById("board").appendChild(gameOver);
   }
 }
