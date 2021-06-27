@@ -33,6 +33,11 @@ function createGrid() {
       array1.push(element);
     }
   }
+  for (let i = 1; i<=n**2/2; i++){
+    colorArray.push(`rgb(${Math.floor(
+        Math.random() * 255
+      )},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)})`)
+}
   for (let i = 0; i < n ** 2; i++) {
     let button = document.createElement("div");
     button.id = `box-${i}`;
@@ -69,11 +74,7 @@ function createGrid() {
 
 let colorArray = [];
 
-for (let i = 1; i<=n**2/2; i++){
-    colorArray.push(`rgb(${Math.floor(
-        Math.random() * 255
-      )},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)})`)
-}
+
 
 function idToNum(id) {
   return id.split("-")[1];
