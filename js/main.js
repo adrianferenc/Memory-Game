@@ -1,4 +1,4 @@
-let array1, array2, guess1, guess2, turns, found, gridLength, n;
+let array1, array2, guess1, guess2, turns, found, gridLength, n, colorArray;
 
 let slider = document.getElementById("myRange");
 
@@ -33,6 +33,7 @@ function createGrid() {
       array1.push(element);
     }
   }
+  colorArray = [];
   for (let i = 1; i<=n**2/2; i++){
     colorArray.push(`rgb(${Math.floor(
         Math.random() * 255
@@ -72,7 +73,7 @@ function createGrid() {
   document.getElementById("pregame").remove();
 }
 
-let colorArray = [];
+
 
 
 
