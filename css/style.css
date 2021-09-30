@@ -8,13 +8,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0;
 }
 
 #board {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #game {
@@ -28,7 +29,27 @@
   align-items: center;
 }
 
-/* #myRange {
-  width: 15rem;
+#radioButtons {
+  display: flex;
+  width: 60%;
+  justify-content: space-between;
+}
 
-} */
+#options {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#dimensions, #difficulty {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  width: 50rem;
+}
+
+@media only screen and (max-width: 768px) {
+  #options {
+    flex-direction: column;
+  }
+}

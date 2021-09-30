@@ -5,50 +5,57 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Memory Game</title>
+    <link rel="stylesheet" href="css/sakura.css" />
     <link rel="stylesheet" href="css/style.css" />
     <script defer src="js/main.js"></script>
   </head>
   <body>
     <div id="pregame">
-      <h2>How large would you like your box to be?</h2>
-      <input
-        type="range"
-        min="2"
-        max="10"
-        value="3"
-        class="slider"
-        id="myRange"
-      />
-      <p id="boxSize"></p>
-      <br />
-      <h2>Set your difficulty level:</h2>
-      <div>
-      <label class="radio-inline"
-        ><input
-          type="radio"
-          id="easy"
-          name="difficulty"
-          value="easy"
-        />Easy</label
-      >
-      <label class="radio-inline"
-        ><input
-          type="radio"
-          id="regular"
-          name="difficulty"
-          value="regular"
-          checked="true"
-        />Regular</label
-      >
-      <label class="radio-inline"
-        ><input
-          type="radio"
-          id="hard"
-          name="difficulty"
-          value="hard"
-        />Hard</label
-      >
-    </div>
+      <h1>Memory</h1>
+      <div id="options">
+        <div id="dimensions">
+          <h2>Set the board's dimensions:</h2>
+          <input
+            type="range"
+            min="2"
+            max="10"
+            value="3"
+            class="slider"
+            id="myRange"
+          />
+          <p id="boxSize"></p>
+        </div>
+        <div id="difficulty">
+          <h2>Set the difficulty level:</h2>
+          <div id="radioButtons">
+            <label class="radio-inline"
+              ><input
+                type="radio"
+                id="easy"
+                name="difficulty"
+                value="easy"
+              />Easy</label
+            >
+            <label class="radio-inline"
+              ><input
+                type="radio"
+                id="regular"
+                name="difficulty"
+                value="regular"
+                checked="true"
+              />Regular</label
+            >
+            <label class="radio-inline"
+              ><input
+                type="radio"
+                id="hard"
+                name="difficulty"
+                value="hard"
+              />Hard</label
+            >
+          </div>
+        </div>
+      </div>
       <input type="button" value="Start" id="start" />
     </div>
     <div id="board">
