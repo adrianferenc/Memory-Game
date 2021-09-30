@@ -3,11 +3,11 @@ let array1, array2, guess1, guess2, turns, found, gridLength, n, colorArray;
 let slider = document.getElementById("myRange");
 
 n = 2 * slider.value;
-document.getElementById("boxSize").innerHTML = n;
+document.getElementById("boxSize").innerHTML = `${n} x ${n}`;
 
 slider.oninput = function () {
   n = 2 * this.value;
-  document.getElementById("boxSize").innerHTML = n;
+  document.getElementById("boxSize").innerHTML = `${n} x ${n}`;
 };
 
 let start = document.getElementById("start");
@@ -34,11 +34,13 @@ function createGrid() {
     }
   }
   colorArray = [];
-  for (let i = 0; i<=n**2/2; i++){
-    colorArray.push(`rgb(${Math.floor(
+  for (let i = 0; i <= n ** 2 / 2; i++) {
+    colorArray.push(
+      `rgb(${Math.floor(Math.random() * 255)},${Math.floor(
         Math.random() * 255
-      )},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)})`)
-}
+      )},${Math.floor(Math.random() * 255)})`
+    );
+  }
   for (let i = 0; i < n ** 2; i++) {
     let button = document.createElement("div");
     button.id = `box-${i}`;
@@ -59,7 +61,7 @@ function createGrid() {
   }
   if (document.getElementById("hard").checked) {
     for (let i = 0; i < boxes.length; i++) {
-      boxes[i].style.border = '0pt solid white';
+      boxes[i].style.border = "0pt solid white";
     }
   }
   for (let i = 0; i < n; i++) {
@@ -73,10 +75,6 @@ function createGrid() {
   document.getElementById("pregame").remove();
 }
 
-
-
-
-
 function idToNum(id) {
   return id.split("-")[1];
 }
@@ -87,7 +85,7 @@ function numToId(id) {
 
 function select(e) {
   id = e.target.id;
-  if (guess2) { 
+  if (guess2) {
     document.getElementById(guess1).classList.remove("selected");
     document.getElementById(guess2).classList.remove("selected");
     document.getElementById(guess1).textContent = "";
@@ -99,13 +97,15 @@ function select(e) {
     document.getElementById(id).classList.add("selected");
     document.getElementById(id).removeEventListener("click", select);
     document.getElementById(id).textContent = array1[idToNum(id)];
-    document.getElementById(id).style.backgroundColor = colorArray[array1[idToNum(id)]]
+    document.getElementById(id).style.backgroundColor =
+      colorArray[array1[idToNum(id)]];
     guess1 = id;
     guess2 = null;
   } else if (guess1) {
     turns++;
     document.getElementById(id).classList.add("selected");
-    document.getElementById(id).style.backgroundColor = colorArray[array1[idToNum(id)]]
+    document.getElementById(id).style.backgroundColor =
+      colorArray[array1[idToNum(id)]];
     document.getElementById(id).textContent = array1[idToNum(id)];
     document.getElementById(id).removeEventListener("click", select);
     guess2 = id;
@@ -120,14 +120,19 @@ function select(e) {
   } else {
     document.getElementById(id).classList.add("selected");
     document.getElementById(id).textContent = array1[idToNum(id)];
-    document.getElementById(id).style.backgroundColor = colorArray[array1[idToNum(id)]]
+    document.getElementById(id).style.backgroundColor =
+      colorArray[array1[idToNum(id)]];
     document.getElementById(id).removeEventListener("click", select);
     guess1 = id;
   }
 
   if (found === n ** 2) {
-    let gameOver = document.createElement("h1");
+    const gameOver = document.createElement("h1");
     gameOver.textContent = `Game over. It took you ${turns} turns.`;
     document.getElementById("board").appendChild(gameOver);
+    const reset = document.createElement("button");
+    reset.addEventListener("click", (e)=> window.location.reload());
+    reset.textContent="Play Again"
+    document.getElementById("board").appendChild(reset);
   }
 }
