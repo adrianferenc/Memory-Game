@@ -35,7 +35,17 @@ function createGrid() {
   }
   colorArray = [];
   for (let i = 0; i <= n ** 2 / 2; i++) {
-    colorArray.push(Math.floor(Math.random() * 10000000).toString(16));
+    colorArray.push(
+      Math.floor(Math.random() * 255)
+        .toString(16)
+        .padStart(2, "0") +
+        Math.floor(Math.random() * 255)
+          .toString(16)
+          .padStart(2, "0") +
+        Math.floor(Math.random() * 255)
+          .toString(16)
+          .padStart(2, "0")
+    );
   }
   for (let i = 0; i < n ** 2; i++) {
     let button = document.createElement("div");
