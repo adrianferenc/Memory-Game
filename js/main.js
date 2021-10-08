@@ -35,11 +35,7 @@ function createGrid() {
   }
   colorArray = [];
   for (let i = 0; i <= n ** 2 / 2; i++) {
-    colorArray.push(
-      `rgb(${Math.floor(Math.random() * 255)},${Math.floor(
-        Math.random() * 255
-      )},${Math.floor(Math.random() * 255)})`
-    );
+    colorArray.push(Math.floor(Math.random() * 10000000).toString(16));
   }
   for (let i = 0; i < n ** 2; i++) {
     let button = document.createElement("div");
@@ -97,15 +93,32 @@ function select(e) {
     document.getElementById(id).classList.add("selected");
     document.getElementById(id).removeEventListener("click", select);
     document.getElementById(id).textContent = array1[idToNum(id)];
-    document.getElementById(id).style.backgroundColor =
-      colorArray[array1[idToNum(id)]];
+    document.getElementById(id).style.backgroundColor = `#${
+      colorArray[array1[idToNum(id)]]
+    }`;
+    document.getElementById(id).style.color =
+      parseInt(colorArray[array1[idToNum(id)]].substring(0, 2), 16) * 0.299 +
+        parseInt(colorArray[array1[idToNum(id)]].substring(2, 4), 16) * 0.587 +
+        parseInt(colorArray[array1[idToNum(id)]].substring(4, 6), 16) * 0.114 >
+      180
+        ? `#4a4a4a`
+        : `white`;
+
     guess1 = id;
     guess2 = null;
   } else if (guess1) {
     turns++;
     document.getElementById(id).classList.add("selected");
-    document.getElementById(id).style.backgroundColor =
-      colorArray[array1[idToNum(id)]];
+    document.getElementById(id).style.backgroundColor = `#${
+      colorArray[array1[idToNum(id)]]
+    }`;
+    document.getElementById(id).style.color =
+      parseInt(colorArray[array1[idToNum(id)]].substring(0, 2), 16) * 0.299 +
+        parseInt(colorArray[array1[idToNum(id)]].substring(2, 4), 16) * 0.587 +
+        parseInt(colorArray[array1[idToNum(id)]].substring(4, 6), 16) * 0.114 >
+      180
+        ? `#4a4a4a`
+        : `white`;
     document.getElementById(id).textContent = array1[idToNum(id)];
     document.getElementById(id).removeEventListener("click", select);
     guess2 = id;
@@ -120,8 +133,16 @@ function select(e) {
   } else {
     document.getElementById(id).classList.add("selected");
     document.getElementById(id).textContent = array1[idToNum(id)];
-    document.getElementById(id).style.backgroundColor =
-      colorArray[array1[idToNum(id)]];
+    document.getElementById(id).style.backgroundColor = `#${
+      colorArray[array1[idToNum(id)]]
+    }`;
+    document.getElementById(id).style.color =
+      parseInt(colorArray[array1[idToNum(id)]].substring(0, 2), 16) * 0.299 +
+        parseInt(colorArray[array1[idToNum(id)]].substring(2, 4), 16) * 0.587 +
+        parseInt(colorArray[array1[idToNum(id)]].substring(4, 6), 16) * 0.114 >
+      180
+        ? `#4a4a4a`
+        : `white`;
     document.getElementById(id).removeEventListener("click", select);
     guess1 = id;
   }
@@ -131,8 +152,8 @@ function select(e) {
     gameOver.textContent = `Game over. It took you ${turns} turns.`;
     document.getElementById("board").appendChild(gameOver);
     const reset = document.createElement("button");
-    reset.addEventListener("click", (e)=> window.location.reload());
-    reset.textContent="Play Again"
+    reset.addEventListener("click", (e) => window.location.reload());
+    reset.textContent = "Play Again";
     document.getElementById("board").appendChild(reset);
   }
 }
